@@ -1,7 +1,7 @@
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from '@rneui/base';
-import { PRIMARYCOLOR } from '../../assets/Constant/COLOR';
+import { BLACKCOLOR, PRIMARYCOLOR } from '../../assets/Constant/COLOR';
 import ReceptionScreen from '../screens/Reception/Reception';
 import ProfileScreen from '../screens/Profile/Profile';
 
@@ -12,7 +12,9 @@ export default function BottomStack() {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor:PRIMARYCOLOR,
+        tabBarStyle:{backgroundColor:BLACKCOLOR}
       }}
+    
     >
       <Tab.Screen
         name=" "
@@ -43,7 +45,7 @@ export default function BottomStack() {
           tabBarIcon: ({ color, size }) => (
             <Icon name="person" color={color} size={size} />
           ),
-          
+          headerShown:false
         }}
       />
       

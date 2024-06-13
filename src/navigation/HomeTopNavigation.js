@@ -2,7 +2,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Annonce from '../component/Annonce';
 import Letteer from '../component/Letteer';
 import Table from '../component/Table';
-import { PRIMARYCOLOR } from '../../assets/Constant/COLOR';
+import { BLACKCOLOR, PRIMARYCOLOR } from '../../assets/Constant/COLOR';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -12,8 +12,8 @@ export default function HomeTopNavigation() {
       initialRouteName="Annonce"
       screenOptions={{
         tabBarActiveTintColor: PRIMARYCOLOR,
-        tabBarLabelStyle: { fontSize: 12, backgroundColor:"#ddd", paddingHorizontal:15,paddingVertical:5, borderRadius:20 },
-        tabBarStyle: { backgroundColor: 'none',  },
+        tabBarLabelStyle: { fontSize: 12, paddingHorizontal:15,paddingVertical:5, borderRadius:20 },
+        tabBarStyle: { backgroundColor:BLACKCOLOR,  },
       }}
     >
       <Tab.Screen

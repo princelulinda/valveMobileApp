@@ -1,42 +1,54 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, Button } from 'react-native';
 
-const ProfileScreen = () => {
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
+import React from 'react'
+import { Avatar } from '@rneui/base'
+import { BLACKCOLOR, PRIMARYCOLOR } from '../../../assets/Constant/COLOR'
+import ProfileNavigation from '../../navigation/profileNavigation'
+
+export default function Profile() {
   return (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: 'https://example.com/profile-pic.jpg' }}
-        style={styles.profileImage}
-      />
-      <Text style={styles.name}>John Doe</Text>
-      <Text style={styles.email}>johndoe@example.com</Text>
-      <Button title="Edit Profile" onPress={() => { /* Edit profile logic */ }} />
+   <ScrollView>
+     <View style={styles.container}>
+      <View>
+        <Avatar title='F' containerStyle={{backgroundColor:PRIMARYCOLOR}} rounded={true} size={"xlarge"}/>
+      </View>
+      <View style={styles.infoContainer}>
+         <View>
+         <Text style= {styles.username}>
+            Fongolab
+        </Text>
+         <Text>www.fongolab.com</Text>
+         </View>
+         <View style={{width:"70%"}}>
+            <Text style={{textAlign:"center", fontWeight:"600"}}>Developpement de site web| mobile App| web App</Text>
+         </View>
+       <View>
+       </View>
+      </View>
     </View>
-  );
-};
+    <View>
+    <ProfileNavigation/>
 
+    </View>
+   </ScrollView>
+  )
+}
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+container:{
+   flex:1,
+   alignItems:"center",
+   gap:10,
+   paddingVertical:20
+},
+  infoContainer:{
+    alignItems:"center",
+    gap:10,
   },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 20,
+  username:{
+    fontSize:25,
+    fontWeight:"bold"
   },
-  name: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  email: {
-    fontSize: 18,
-    color: 'gray',
-    marginBottom: 20,
-  },
-});
-
-export default ProfileScreen;
+  clubmember:{
+    flexDirection:"row"
+  }
+})

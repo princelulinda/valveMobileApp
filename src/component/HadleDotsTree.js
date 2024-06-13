@@ -2,6 +2,7 @@ import { View, Text, Pressable } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons';
+import { BLACKCOLOR } from '../../assets/Constant/COLOR';
 
 export default function HadleDotsTree() {
   return (
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
      justifyContent:"space-between"
     },
     deconnexion: {
-      backgroundColor: '#ff6347', 
+      backgroundColor: BLACKCOLOR, 
       padding: 10,
       borderRadius: 5,
       alignItems: 'center',

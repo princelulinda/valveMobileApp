@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Header, Icon } from '@rneui/themed';
-import { PRIMARYCOLOR } from '../../assets/Constant/COLOR';
+import { BLACKCOLOR, PRIMARYCOLOR } from '../../assets/Constant/COLOR';
 import HadleDotsTree from './HadleDotsTree';
 
 const AppHeader = () => {
@@ -22,7 +22,7 @@ const AppHeader = () => {
         />
       }
       containerStyle={{
-        backgroundColor: '#fff',
+        backgroundColor: BLACKCOLOR,
         justifyContent: 'space-around',
       }}
     />

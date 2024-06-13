@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
 import moment from 'moment';
+import { Avatar } from '@rneui/base';
+import { PRIMARYCOLOR } from '../../../assets/Constant/COLOR';
 
 const messages = [
   {
@@ -24,7 +26,7 @@ const messages = [
 const Reception = () => {
   const renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Image source={{ uri: item.avatar }} style={styles.avatar} />
+      <Avatar title={item.name[0]} size={"large"} avatarStyle={{backgroundColor:PRIMARYCOLOR}}/>
       <View style={styles.info}>
         <View style={styles.header}>
           <Text style={styles.name}>{item.name}</Text>
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
+    gap:10
   },
   avatar: {
     width: 50,
