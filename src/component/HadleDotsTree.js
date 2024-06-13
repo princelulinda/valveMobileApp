@@ -3,28 +3,27 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons';
 import { BLACKCOLOR } from '../../assets/Constant/COLOR';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HadleDotsTree() {
+  const navigation =  useNavigation()
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button}>
-        <Text style={{fontSize:17}}>Clubs d'Etudiants</Text>
+      <Pressable style={styles.button} onPress={()=>navigation.navigate("studentClubs")}>
+        <Text style={{fontSize:17, color:"#333"}}>Clubs d'Etudiants</Text>
       </Pressable>
       <Pressable style={styles.button}>
-        <Text style={{fontSize:17}}>Conseil des Etudiants</Text>
+        <Text style={{fontSize:17, color:"#333"}}>Conseil des Etudiants</Text>
       </Pressable>
       <Pressable style={styles.button}>
-        <Text style={{fontSize:17}}>Direction de la Recherche </Text>
+        <Text style={{fontSize:17, color:"#333"}}>Direction de la Recherche </Text>
       </Pressable>
       <Pressable style={styles.button}>
-        <Text style={{fontSize:17}}>Assurance Qualiter</Text>
+        <Text style={{fontSize:17, color:"#333"}}>Assurance Qualiter</Text>
       </Pressable>
-      <View style={styles.mode}> 
-        <Text style={{fontSize:17}}>Mode</Text>
-        <Pressable style={styles.button}>
-        <Feather name="sun" size={24} color="black" />
+      <Pressable style={styles.button} onPress={()=>navigation.navigate("Setting")}>
+        <Text style={{fontSize:17, color:"#333"}}> Setting</Text>
       </Pressable>
-      </View>
       <Pressable style={styles.deconnexion}>
         <Text style={styles.deconnexiontext}>Deconnexion</Text>
       </Pressable>

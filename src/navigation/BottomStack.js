@@ -11,8 +11,8 @@ export default function BottomStack() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor:PRIMARYCOLOR,
-        tabBarStyle:{backgroundColor:BLACKCOLOR}
+        tabBarActiveTintColor:BLACKCOLOR,
+        tabBarStyle:{backgroundColor:PRIMARYCOLOR}
       }}
     
     >

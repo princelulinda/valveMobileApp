@@ -11,9 +11,9 @@ export default function HomeTopNavigation() {
     <Tab.Navigator
       initialRouteName="Annonce"
       screenOptions={{
-        tabBarActiveTintColor: PRIMARYCOLOR,
+        tabBarActiveTintColor: BLACKCOLOR,
         tabBarLabelStyle: { fontSize: 12, paddingHorizontal:15,paddingVertical:5, borderRadius:20 },
-        tabBarStyle: { backgroundColor:BLACKCOLOR,  },
+        tabBarStyle: { backgroundColor:"#ddd", },
       }}
     >
       <Tab.Screen

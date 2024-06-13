@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import { Avatar } from '@rneui/base';
 import { PRIMARYCOLOR } from '../../../assets/Constant/COLOR';
+import { useNavigation } from '@react-navigation/native';
 
 const messages = [
   {
@@ -24,8 +25,10 @@ const messages = [
 ];
 
 const Reception = () => {
+  const navigation =  useNavigation()
   const renderItem = ({ item }) => (
-    <View style={styles.item}>
+    <TouchableOpacity onPress={()=>navigation.navigate("AnnonceDetail", {item:item})}>
+        <View style={styles.item}>
       <Avatar title={item.name[0]} size={"large"} avatarStyle={{backgroundColor:PRIMARYCOLOR}}/>
       <View style={styles.info}>
         <View style={styles.header}>
@@ -42,6 +45,7 @@ const Reception = () => {
         </View>
       </View>
     </View>
+    </TouchableOpacity>
   );
 
   return (
