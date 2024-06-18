@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-const AnnonceDetail = ({ route }) => {
+const AnnonceDetail = ({ route}) => {
   const { item } = route.params;
   return (
     <View style={styles.container}>

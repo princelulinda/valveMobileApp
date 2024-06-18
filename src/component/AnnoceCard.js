@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import Comments from './BottomSheet';
 import CommentsComponent from './commentContenent';
+
 
 const posts = [
   {
@@ -61,13 +62,13 @@ const AnnonceCard = () => {
   }
 
   return (
-    <View>
-      <FlatList
+   <ScrollView>
+     <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <RenderItem item={item} />}
       />
-    </View>
+   </ScrollView>
   );
 };
 

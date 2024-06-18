@@ -4,7 +4,8 @@ import moment from 'moment';
 import { Avatar } from '@rneui/base';
 import { PRIMARYCOLOR } from '../../../assets/Constant/COLOR';
 import { useNavigation } from '@react-navigation/native';
-
+import Animated, { useSharedValue, useAnimatedScrollHandler } from 'react-native-reanimated';
+import AnimatedButton from '../../component/AnimatedBtn';
 const messages = [
   {
     id: '1',
@@ -15,7 +16,40 @@ const messages = [
     unreadCount: 2,
   },
   {
-    id: '2',
+    id: '2adsd',
+    name: 'Fongolab',
+    avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
+    lastMessage: 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+    date: '2024-06-11T15:12:00.000Z',
+    unreadCount: 5,
+  },
+
+  {
+    id: 'vdv',
+    name: 'Direction pedagogique',
+    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+    lastMessage: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum",
+    date: '2024-06-11T14:48:00.000Z',
+    unreadCount: 2,
+  },
+  {
+    id: 'ew',
+    name: 'Fongolab',
+    avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
+    lastMessage: 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+    date: '2024-06-11T15:12:00.000Z',
+    unreadCount: 5,
+  },
+  {
+    id: 'df',
+    name: 'Direction pedagogique',
+    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+    lastMessage: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum",
+    date: '2024-06-11T14:48:00.000Z',
+    unreadCount: 2,
+  },
+  {
+    id: 'we',
     name: 'Fongolab',
     avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
     lastMessage: 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
@@ -25,6 +59,12 @@ const messages = [
 ];
 
 const Reception = () => {
+  const scrollY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    scrollY.value = event.contentOffset.y;
+     console.log(scrollY)
+  });
   const navigation =  useNavigation()
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={()=>navigation.navigate("AnnonceDetail", {item:item})}>
@@ -49,20 +89,24 @@ const Reception = () => {
   );
 
   return (
-    <FlatList
-      data={messages}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-      style={styles.container}
-    />
+    <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16} style={styles.scrollView}>
+      <FlatList
+        data={messages}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        style={styles.container}
+      />
+    <AnimatedButton scrollY={scrollY} />
+  </Animated.ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
+    scrollView: {
+      flex: 1,
+      backgroundColor: '#fff',
+    },
+ 
   item: {
     flexDirection: 'row',
     padding: 10,
