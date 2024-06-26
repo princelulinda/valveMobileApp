@@ -11,15 +11,20 @@ import SettingsScreen from '../screens/SettingScreen/SettingScreen'
 import EditProfileScreen from '../screens/EditClubProfilScreen/EditClubProfilScreen'
 import SignInScreen from '../screens/Auth/Login'
 import { AntDesign,Feather  } from '@expo/vector-icons';
+import SendPost from '../screens/AnnonceEdit/AnnonceEdit'
 
 const Stack = createStackNavigator()
 
 const NavigationScreen = () => {
+  const LocalUserData = localStorage.getItem("userData")
   return (
    <NavigationContainer>
     <Stack.Navigator>
+      {LocalUserData?
       <Stack.Screen name="Home" component={BottomStack} options={{headerShown:false}}/>
-    <Stack.Screen name="Login" component={SignInScreen} options={{headerShown:false}}/>
+      :<Stack.Screen name="Login" component={SignInScreen} options={{headerShown:false}}/>
+      }
+      <Stack.Screen name="/" component={BottomStack} options={{headerShown:false}}/>
       <Stack.Screen name='studentClubs' component={StudentClubScreen}/>
       <Stack.Screen name ='AnnonceDetail' component={AnnonceDetail}
       options={
@@ -38,6 +43,7 @@ const NavigationScreen = () => {
       }
       />
       <Stack.Screen name="Setting" component={SettingsScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="annonceSend" component={SendPost} options={{headerShown:false}}/> 
       <Stack.Screen name='EditProfileScreen' component={EditProfileScreen} options={{headerShown:false}}/>
 
     </Stack.Navigator>
@@ -47,3 +53,4 @@ const NavigationScreen = () => {
 
 export default NavigationScreen
 
+// 19600150

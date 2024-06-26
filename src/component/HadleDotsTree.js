@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
     container: {
        position:"absolute", 
        top:"7%",
-       zIndex:5,
+       zIndex:20,
        right:10,
        backgroundColor:"#fff",
        padding:10,
-       gap:10
+       gap:10,
     },
     button:{
         paddingVertical:10

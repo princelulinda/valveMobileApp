@@ -96,7 +96,7 @@ const Reception = () => {
         keyExtractor={item => item.id}
         style={styles.container}
       />
-    <AnimatedButton scrollY={scrollY} />
+    <AnimatedButton scrollY={scrollY} onPress={()=>navigation.navigate("annonceSend")} />
   </Animated.ScrollView>
   );
 };
