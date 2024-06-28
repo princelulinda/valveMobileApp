@@ -1,20 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useInsertionEffect } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import NavigationScreen from './src/navigation/NavigationScreen';
+import { useUserStore } from './store/zustand';
 
-export default function App() {
+const client = new QueryClient();
+function App() {
+    useEffect(()=>{
+      useUserStore.setState({user: localStorage.getItem("userData")? JSON.parse(localStorage.getItem("userData")): null}) 
+    },[])
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <QueryClientProvider client={client}>
+      <NavigationScreen/>
+    </QueryClientProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
