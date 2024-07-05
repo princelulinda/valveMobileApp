@@ -10,8 +10,7 @@ const StudentClubScreen = () => {
       id: '1',
       name: 'Fongolab',
       email: 'Fongolab.com',
-      followers: 1200,
-      following: 800,
+    
       description: 'Description courte de Fongolab.',
       avatar: 'assets/logoFongolab.png',
       socialIcons: ['logo-facebook', 'logo-twitter', 'logo-instagram'],
@@ -20,8 +19,6 @@ const StudentClubScreen = () => {
       id: '2',
       name: 'Cars',
       email: 'Cars.com',
-      followers: 1500,
-      following: 900,
       description: 'Description courte de Cars.',
       avatar: 'assets/logoFongolab.png',
       socialIcons: ['logo-facebook', 'logo-instagram'],
@@ -39,11 +36,11 @@ const StudentClubScreen = () => {
       </View>
       <View style={styles.stats}>
         <View style={styles.stat}>
-          <Text style={styles.statNumber}>{item.followers}</Text>
+          {/* <Text style={styles.statNumber}>{item.followers}</Text> */}
           <Text style={styles.statLabel}>Followers</Text>
         </View>
         <View style={styles.stat}>
-          <Text style={styles.statNumber}>{item.following}</Text>
+          {/* <Text style={styles.statNumber}>{item.following}</Text> */}
           <Text style={styles.statLabel}>Following</Text>
         </View>
       </View>

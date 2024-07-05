@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { db } from "../.firebase/firebaseConf";
 import { doc, getDoc } from "firebase/firestore";
 
+
 const useUserStore = create((set) => ({
   user: null,
   error: null,
@@ -18,6 +19,7 @@ const useUserStore = create((set) => ({
       }
     } catch (error) {
       console.error("Error fetching user:", error);
+      console.log("je suis");
       set({ user: null, error: error.message || 'Unknown error occurred' });
     }
   },

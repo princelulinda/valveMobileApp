@@ -55,18 +55,18 @@ const ComposeEmailScreen = ({ navigation }) => {
     }
   };
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1,}}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerButton}>
-          <Icon name="arrow-back" size={24} color="#ddd" />
+          <Icon name="arrow-back" size={24} color="#111" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Compose Email</Text>
         <View style={{flexDirection:"row"}}>
         <TouchableOpacity onPress={pickDocument} style={styles.headerButton}>
-          <Icon name="attach-file" size={24} color="#ddd" />
+          <Icon name="attach-file" size={24} color="#111" />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleSendEmail} style={styles.headerButton}>
-          <Icon name="send" size={24} color="#ddd" />
+          <Icon name="send" size={24} color="#111" />
         </TouchableOpacity>
         </View>
       </View>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color:"#ddd"
+    color:"#111"
   },
   container: {
     padding: 10,

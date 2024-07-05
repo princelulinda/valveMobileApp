@@ -1,6 +1,5 @@
 import { View, Text,StatusBar, ScrollView , SafeAreaView} from 'react-native'
 import React from 'react'
-import AppHeader from '../../component/Header'
 import HomeTopNavigation from '../../navigation/HomeTopNavigation'
 import AppBar from '../../component/AppBar'
 import ToolBar from '../../component/ToolBar'
@@ -20,7 +19,7 @@ export default function HomeScreen({navigation}) {
 			/>
 			<SafeAreaView>
 				<ScrollView>
-					<AppBar />
+					<AppBar  navigation={navigation}/>
 					{/* <ToolBar /> */}
 					{/* <Users /> */}
 					<Story navigation={navigation} />

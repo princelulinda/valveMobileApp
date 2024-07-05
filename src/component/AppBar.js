@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Feather, MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
 import { PRIMARYCOLOR } from '../../assets/Constant/COLOR';
-import HadleDotsTree from './HadleDotsTree';
+import HadleDotsTree, { MyMenu } from './HadleDotsTree';
 
-const AppBar = () => {
+const AppBar = ({navigation}) => {
   const [toggle, setToggle] = useState(false)
   return (
     <View style={styles.container}>
@@ -14,10 +14,7 @@ const AppBar = () => {
         <TouchableOpacity style={styles.button}>
           <Feather name='search' size={29} color='black' />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}  onPress={()=>setToggle(!toggle)}>
-          <Entypo name="dots-three-vertical" size={24} color="black" />
-        </TouchableOpacity>
-       {toggle?<HadleDotsTree/>: null}
+        <MyMenu navigation={navigation}/>
       </View>
     </View>
   );

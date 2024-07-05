@@ -14,7 +14,7 @@ const AnnonceDetail = ({ route }) => {
       <Text style={styles.title}>{item.subject}</Text>
       <Text style={styles.date}>{formattedDate}</Text>
       <Text style={styles.description}>{item.body}</Text>
-      <Text style={styles.sender}>Envoyé par: {JSON.parse(item.sender).name}, {JSON.parse(item.sender).status}, Matricule: {JSON.parse(item.sender).matricule}, Promotion: {JSON.parse(item.sender).promotion}</Text>
+      <Text style={styles.sender}>Envoyé par: {item.name}, {item.status}, Matricule: {item.matricule}, Promotion: {item.promotion}</Text>
     </View>
   );
 };

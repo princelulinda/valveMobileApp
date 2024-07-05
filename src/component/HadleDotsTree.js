@@ -1,42 +1,66 @@
-import { View, Text, Pressable } from 'react-native'
-import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Feather } from '@expo/vector-icons';
-import { BLACKCOLOR } from '../../assets/Constant/COLOR';
-import { useNavigation } from '@react-navigation/native';
 
-export default function HadleDotsTree() {
-  const navigation =  useNavigation()
+
+
+
+
+
+
+
+
+
+import { Icon } from '@rneui/base'
+import * as DropdownMenu from 'zeego/dropdown-menu'
+import { BLACKCOLOR } from '../../assets/Constant/COLOR'
+import { StyleSheet, TouchableOpacity } from 'react-native'
+import { Text } from 'react-native'
+
+export function MyMenu({navigation}) {
   return (
-    <View style={styles.container}>
-      <Pressable style={styles.button} onPress={()=>navigation.navigate("studentClubs")}>
-        <Text style={{fontSize:17, color:"#333"}}>Clubs d'Etudiants</Text>
-      </Pressable>
-      <Pressable style={styles.button}>
-        <Text style={{fontSize:17, color:"#333"}}>Conseil des Etudiants</Text>
-      </Pressable>
-      <Pressable style={styles.button}>
-        <Text style={{fontSize:17, color:"#333"}}>Direction de la Recherche </Text>
-      </Pressable>
-      <Pressable style={styles.button}>
-        <Text style={{fontSize:17, color:"#333"}}>Assurance Qualiter</Text>
-      </Pressable>
-      <Pressable style={styles.button} onPress={()=>navigation.navigate("Setting")}>
-        <Text style={{fontSize:17, color:"#333"}}> Setting</Text>
-      </Pressable>
-      <Pressable style={styles.deconnexion}>
-        <Text style={styles.deconnexiontext}>Deconnexion</Text>
-      </Pressable>
-    </View>
-    
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+      <Icon
+          name="dots-three-vertical"
+          type="entypo"
+          color="#333"
+        />
+        <DropdownMenu.Content  style={styles.container}>
+         <DropdownMenu.Group style={{gap:10}}>
+         <DropdownMenu.Item  key={"club"}>
+          <DropdownMenu.ItemTitle>
+             <TouchableOpacity onPress={()=>navigation.navigate("studentClubs")}>
+               <Text>Clubs d'Etudiants</Text>
+             </TouchableOpacity>
+          </DropdownMenu.ItemTitle>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+          <DropdownMenu.ItemTitle>
+             Conseil d'Etudiants
+          </DropdownMenu.ItemTitle>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+          <DropdownMenu.ItemTitle>
+             Direction de Recherche
+          </DropdownMenu.ItemTitle>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+          <DropdownMenu.ItemTitle>
+             Assurence Qualiter
+          </DropdownMenu.ItemTitle>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+          <DropdownMenu.ItemTitle>
+             Parametre
+          </DropdownMenu.ItemTitle>
+        </DropdownMenu.Item>
+         </DropdownMenu.Group>
+        </DropdownMenu.Content>
+      </DropdownMenu.Trigger>
+    </DropdownMenu.Root>
   )
-} 
+}
+
 const styles = StyleSheet.create({
     container: {
-       position:"absolute", 
-       top:"7%",
-       zIndex:20,
-       right:10,
        backgroundColor:"#fff",
        padding:10,
        gap:10,

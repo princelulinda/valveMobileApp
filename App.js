@@ -5,6 +5,7 @@ import { useUserStore } from './store/zustand';
 
 const client = new QueryClient();
 function App() {
+
     useEffect(()=>{
       useUserStore.setState({user: localStorage.getItem("userData")? JSON.parse(localStorage.getItem("userData")): null}) 
     },[])

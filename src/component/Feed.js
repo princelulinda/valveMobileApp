@@ -9,6 +9,7 @@ import moment from 'moment';
 import { PRIMARYCOLOR } from '../../assets/Constant/COLOR';
 import CommentsComponent from './commentContenent';
 import BottomSheet from './BottomSheet';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const Feed = () => {
@@ -24,7 +25,7 @@ const Feed = () => {
         const postsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setPosts(postsData);
       } catch (error) {
-        console.error("Error fetching posts: ", error);
+        console.error("Error fetching posts:helo ", error);
       } finally {
         setLoading(false);
       }
@@ -103,8 +104,8 @@ const a = new Date().toLocaleTimeString()
 
 
   return (
- <>
- {
+ <ScrollView>
+    {
   loading?   <FlatList
   data={[...Array(5).keys()]}
   renderItem={()=><PostSkeleton/>}
@@ -118,7 +119,7 @@ const a = new Date().toLocaleTimeString()
  />
 
  }
- </>
+ </ScrollView>
    );
 }
 

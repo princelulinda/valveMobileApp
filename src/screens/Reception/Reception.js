@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import { Avatar } from '@rneui/base';
 import { PRIMARYCOLOR } from '../../../assets/Constant/COLOR';
@@ -7,13 +7,15 @@ import { useNavigation } from '@react-navigation/native';
 import Animated, { useSharedValue, useAnimatedScrollHandler } from 'react-native-reanimated';
 import AnimatedButton from '../../component/AnimatedBtn';
 import { useAnnonceStore, useUserStore } from '../../../store/zustand';
+
 const Reception = () => {
   const { annonces, fetchAnnonces } = useAnnonceStore();
-  const {user} = useUserStore()
+  const { user } = useUserStore();
+
   useEffect(() => {
     fetchAnnonces();
   }, [fetchAnnonces]);
-  
+
   const scrollY = useSharedValue(0);
   const navigation = useNavigation();
 
@@ -22,11 +24,12 @@ const Reception = () => {
   });
 
   const renderItem = ({ item }) => {
-    const formattedDate = new Date().toLocaleDateString();
-   return (
-      <TouchableOpacity key={item.body} onPress={() => navigation.navigate("AnnonceDetail", { item })}>
+    const sender = typeof item.sender === 'string' ? JSON.parse(item.sender) : item.sender;
+
+    return (
+      <TouchableOpacity key={item.id} onPress={() => navigation.navigate("AnnonceDetail", { item })}>
         <View style={styles.item}>
-          <Avatar title={JSON.parse(item.sender).name[0]} size={"large"} avatarStyle={{ backgroundColor: PRIMARYCOLOR }} />
+          <Avatar title={sender.name[0]} size="large" avatarStyle={{ backgroundColor: PRIMARYCOLOR }} />
           <View style={styles.info}>
             <View style={styles.header}>
               <Text style={styles.name}>{item.subject}</Text>
@@ -34,17 +37,19 @@ const Reception = () => {
             </View>
             <View style={styles.messageInfo}>
               <Text style={styles.lastMessage}>{item.body.slice(0, 100)}</Text>
-                <View style={styles.unreadBadge}>
-                  <Text style={styles.unreadText}>2</Text>
-                </View>
+              <View style={styles.unreadBadge}>
+                <Text style={styles.unreadText}>2</Text>
+              </View>
             </View>
           </View>
         </View>
       </TouchableOpacity>
     );
-  }
+  };
 
   return (
+    <>
+
     <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16} style={styles.scrollView}>
       <FlatList
         data={annonces}
@@ -52,25 +57,27 @@ const Reception = () => {
         keyExtractor={item => item.id}
         style={styles.container}
       />
-      <AnimatedButton scrollY={scrollY} onPress={() => navigation.navigate("annonceSend")} />
+      
     </Animated.ScrollView>
+    <AnimatedButton scrollY={scrollY} onPress={() => navigation.navigate("annonceSend")} />
+    </>
   );
 };
 
-
-
 const styles = StyleSheet.create({
-    scrollView: {
-      flex: 1,
-      backgroundColor: '#fff',
-    },
- 
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  container: {
+    flex: 1,
+  },
   item: {
     flexDirection: 'row',
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
-    gap:10
+    gap: 10,
   },
   avatar: {
     width: 50,

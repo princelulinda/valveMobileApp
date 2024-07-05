@@ -6,12 +6,15 @@ import { addDoc, collection } from "firebase/firestore";
 import { db, storage} from "../../../.firebase/firebaseConf";
 import { useUserStore } from "../../../store/zustand";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ActivityIndicator } from "react-native";
 
 function ViewAffiche({ route, navigation }) {
   const [text, setText] = useState("");
   const { user } = useUserStore();
+  const [loading, setLoading] = useState(false)
 
   const handlePost = async () => {
+    setLoading(true)
     if (user) {
       try {
         let fileURL = '';
@@ -40,6 +43,8 @@ function ViewAffiche({ route, navigation }) {
         if (Platform.OS === "android") {
           ToastAndroid.show("Failed to post story.", ToastAndroid.SHORT);
         }
+      }finally{
+        setLoading(false)
       }
     } else {
       if (Platform.OS === "android") {
@@ -64,8 +69,12 @@ function ViewAffiche({ route, navigation }) {
           multiline
         />
         <TouchableOpacity style={styles.button} onPress={handlePost}>
-          <Text style={styles.buttonText}>Patager un affiche</Text>
-          <Icon name="send" size={24} color={"#fff"} />
+          {loading?<ActivityIndicator size={"small"} color={"#ddd"}/>:(
+            <>
+            <Text style={styles.buttonText}>Patager un affiche</Text>
+           <Icon name="send" size={24} color={"#fff"} />
+           </>
+           )}
         </TouchableOpacity>
       </View>
     </>
@@ -101,7 +110,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 10,
-    alignSelf:"flex-end"
+    alignSelf:"flex-end",
+    width:"75%"
   },
   buttonText: {
     color: "#fff",

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position:"fixed",
-    top:height-height/4,
+    top:"80%",
     right:20
   },
   button: {
