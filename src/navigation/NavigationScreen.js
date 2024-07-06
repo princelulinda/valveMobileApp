@@ -28,8 +28,8 @@ const NavigationScreen = () => {
       :<Stack.Screen name="Login" component={SignInScreen} options={{headerShown:false}}/>
     }
       <Stack.Screen name="/" component={BottomStack} options={{headerShown:false}}/>
-      <Stack.Screen name='studentClubs' component={StudentClubScreen}/>
     <Stack.Screen name='create' component={CreatePostScreen}/>
+    <Stack.Screen name='studentClubs' component={StudentClubScreen}/>
       <Stack.Screen name ='AnnonceDetail' component={AnnonceDetail}
       options={
         {

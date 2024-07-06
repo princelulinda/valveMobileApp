@@ -7,7 +7,7 @@ const PostSkeleton = () => (
     width={400}
     height={475}
     viewBox="0 0 400 475"
-    backgroundColor="#333"
+    backgroundColor="#999"
     foregroundColor="#ecebeb"
     style={{paddingHorizontal:10}}
   >

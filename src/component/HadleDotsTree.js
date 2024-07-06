@@ -1,13 +1,4 @@
 
-
-
-
-
-
-
-
-
-
 import { Icon } from '@rneui/base'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import { BLACKCOLOR } from '../../assets/Constant/COLOR'
@@ -22,39 +13,15 @@ export function MyMenu({navigation}) {
           name="dots-three-vertical"
           type="entypo"
           color="#333"
+          size ={29}
         />
-        <DropdownMenu.Content  style={styles.container}>
-         <DropdownMenu.Group style={{gap:10}}>
-         <DropdownMenu.Item  key={"club"}>
-          <DropdownMenu.ItemTitle>
-             <TouchableOpacity onPress={()=>navigation.navigate("studentClubs")}>
+</DropdownMenu.Trigger>
+    <DropdownMenu.Content>
+    <TouchableOpacity onPress={()=>navigation.navigate("studentClubs")}>
                <Text>Clubs d'Etudiants</Text>
              </TouchableOpacity>
-          </DropdownMenu.ItemTitle>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item>
-          <DropdownMenu.ItemTitle>
-             Conseil d'Etudiants
-          </DropdownMenu.ItemTitle>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item>
-          <DropdownMenu.ItemTitle>
-             Direction de Recherche
-          </DropdownMenu.ItemTitle>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item>
-          <DropdownMenu.ItemTitle>
-             Assurence Qualiter
-          </DropdownMenu.ItemTitle>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item>
-          <DropdownMenu.ItemTitle>
-             Parametre
-          </DropdownMenu.ItemTitle>
-        </DropdownMenu.Item>
-         </DropdownMenu.Group>
-        </DropdownMenu.Content>
-      </DropdownMenu.Trigger>
+    </DropdownMenu.Content>
+
     </DropdownMenu.Root>
   )
 }

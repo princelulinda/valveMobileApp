@@ -73,5 +73,30 @@ const queryPromotionDepartment = query(
   }
 }));
 
+const usePostStore = create((set)=>({
+  posts:null,
+  error: null,
+  fetchPost : async ()=>{
+    try {
+      const querySnapshot = await getDocs(collection(db, 'posts'));
+    const postsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    set({posts:postsData})
+    } catch (error) {
+      set({error:error})
+    }
+  }
+}))
 
-export { useUserStore, useAnnonceStore };
+ const useClubStore = create((set)=>({
+  clubs:null,
+  fetchClub:()=>{
+    const queryClubs = query(
+      collection(db, "clubs"));
+      querySnap = getDocs(queryClubs)
+    querySnap.docs.map((doc)=>{
+    set({clubs:doc.data()})
+  
+  })
+  }
+ }))
+export { useUserStore, useAnnonceStore, usePostStore, useClubStore };

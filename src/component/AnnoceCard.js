@@ -1,139 +1,183 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import Comments from './BottomSheet';
 import CommentsComponent from './commentContenent';
+import { Avatar } from '@rneui/base';
+import { Entypo, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { PRIMARYCOLOR } from '../../assets/Constant/COLOR';
+import BottomSheet from './BottomSheet';
 
 
-const posts = [
-  {
-    id: 1,
-    author: {
-      name: 'Fongolab',
-      email: 'Fongolab.com',
-      avatar: 'assets/logoFongolab.png',
-    },
-    date: '13 juin 2024',
-    title: 'Nouvelle publication',
-    image: 'https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    likes: 15,
-    comments: 4,
-  },
-];
+const AnnonceCard = ({posts}) => {
+  const [loading, setLoading] = useState(true);
+  const [viewMore, setViewMore] = useState(false)
+  const refRBSheet = useRef()
+  const [postData, setPostData] = useState([])
 
-const AnnonceCard = () => {
-  const refRBSheet = useRef();
-  const RenderItem = ({ item }) => {
-    return (
-      <View style={styles.card}>
-        <View style={{flexDirection:"row", justifyContent:"space-between",alignItems:"center"}}>
-        <View style={styles.header}>
-          <Image
-            style={styles.avatar}
-            source={{ uri: item.author.avatar }}
-          />
-          <View>
-            <Text style={styles.author}>{item.author.name}</Text>
-            <Text style={styles.email}>{item.author.email}</Text>
+  const a = new Date().toLocaleTimeString()
+  const renderItem = ({ item }) => (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.row}>
+          <Avatar source={{ uri: item.user.photoURL }} />
+          <View style={styles.userInfo}>
+            <Text style={styles.user}>{item.user.name}</Text>
+            <View style={styles.row}>
+              <Text style={styles.time}>{new Date(item.createdAt.seconds).toLocaleTimeString()}</Text>
+              <Entypo name='dot-single' size={12} color='#747476' />
+              <Entypo name='globe' size={10} color='#747476' />
+            </View>
           </View>
         </View>
-        <Text style={styles.date}>{item.date}</Text>
-        </View>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-        <Image
-          style={styles.itemImage}
-          source={{ uri: item.image }}
-        />
-        <View style={styles.actionBar}>
-          <TouchableOpacity style={styles.iconContainer}>
-            <FontAwesome name="heart-o" size={24} color="#333333" />
-            <Text style={styles.iconText}>{item.likes}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconContainer} onPress={()=> refRBSheet.current.open()}>
-            <FontAwesome name="comment-o" size={24} color="#333333" />
-            <Text style={styles.iconText}>{item.comments}</Text>
-          </TouchableOpacity>
-        </View>
-        <Comments refRBSheet={refRBSheet} children={<CommentsComponent/>}/>
+        <Entypo name='dots-three-horizontal' size={15} color='#222121' />
       </View>
-    );
-  }
+      <View style={{flexDirection:"row", gap:10}}>
+      <Text style={styles.post}>{!viewMore?item.description.slice(0,100): item.description}
+        
+      <TouchableOpacity onPress={()=>setViewMore(!viewMore)}>
+         <Text style={{color:PRIMARYCOLOR}}> {viewMore?"fermer":"voir plus"}</Text>
+      </TouchableOpacity>
+      </Text>
+      </View>
+      <Image source={{ uri: item.image }} style={styles.photo} />
+
+      <View style={styles.footer}>
+        <View style={styles.footerCount}>
+          <View style={styles.row}>
+            <View style={styles.iconCount}>
+              <AntDesign name='like1' size={12} color='#FFFFFF' />
+            </View>
+            <Text style={styles.textCount}>88 likes</Text>
+          </View>
+          <Text style={styles.textCount}>2k comments</Text>
+        </View>
+
+        <View style={styles.separator} />
+
+        <View style={styles.footerMenu}>
+          <TouchableOpacity style={styles.button}>
+            <View style={styles.icon}>
+              <AntDesign name='like2' size={20} color='#424040' />
+            </View>
+            <Text style={styles.text}>Like</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button} onPress={()=>refRBSheet.current.open()}>
+            <View style={styles.icon}>
+              <MaterialCommunityIcons name='comment-outline' size={20} color='#424040' />
+            </View>
+            <Text style={styles.text}>Comment</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button}>
+            <View style={styles.icon}>
+              <MaterialCommunityIcons name='share-outline' size={20} color='#424040' />
+            </View>
+            <Text style={styles.text}>Share</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.bottomDivider} />
+      <BottomSheet refRBSheet={refRBSheet} children={<CommentsComponent postId={item.id}/>} />
+    </View>
+  );
 
   return (
    <ScrollView>
      <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <RenderItem item={item} />}
+        renderItem={renderItem}
       />
    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    margin: 10,
-    borderRadius: 8,
-    backgroundColor: '#ffffff',
-    shadowColor: '#000000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    elevation: 3,
-    padding: 10,
+  container: {
+    flex: 1,
   },
   header: {
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    justifyContent: 'space-between',
+    marginTop: 6,
+    paddingHorizontal: 11,
   },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  author: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  userInfo: {
+    paddingLeft: 10,
   },
-  email: {
+  user: {
     fontSize: 12,
-    color: '#666666',
-  },
-  date: {
-    fontSize: 12,
-    color: '#666666',
-    marginBottom: 5,
-  },
-  title: {
-    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#222121',
   },
-  itemImage: {
+  time: {
+    fontSize: 9,
+    color: '#747476',
+  },
+  post: {
+    fontSize: 12,
+    color: '#222121',
+    lineHeight: 16,
+    paddingHorizontal: 11,
+  },
+  photo: {
+    marginTop: 9,
     width: '100%',
-    height: 200,
-    resizeMode: 'cover',
-    marginBottom: 10,
+    height: 300,
   },
-  description: {
-    fontSize: 14,
-    marginBottom: 10,
+  footer: {
+    paddingHorizontal: 11,
   },
-  actionBar: {
+  footerCount: {
     flexDirection: 'row',
-    gap:20
+    justifyContent: 'space-between',
+    paddingVertical: 9,
   },
-  iconContainer: {
-    flexDirection: 'row',
+  iconCount: {
+    backgroundColor: '#1878f3',
+    width: 20,
+    height: 20,
+    borderRadius: 10,
     alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 6,
   },
-  iconText: {
-    marginLeft: 5,
+  textCount: {
+    fontSize: 11,
+    color: '#424040',
+  },
+  separator: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#f9f9f9',
+  },
+  footerMenu: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 9,
+  },
+  button: {
+    flexDirection: 'row',
+  },
+  icon: {
+    marginRight: 6,
+  },
+  text: {
+    fontSize: 12,
+    color: '#424040',
+  },
+  bottomDivider: {
+    width: '100%',
+    height: 9,
+    backgroundColor: '#f0f2f5',
   },
 });
-
 export default AnnonceCard;

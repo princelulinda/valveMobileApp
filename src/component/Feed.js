@@ -10,29 +10,32 @@ import { PRIMARYCOLOR } from '../../assets/Constant/COLOR';
 import CommentsComponent from './commentContenent';
 import BottomSheet from './BottomSheet';
 import { ScrollView } from 'react-native-gesture-handler';
+import { usePostStore } from '../../store/zustand';
 
 
 const Feed = () => {
-  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [viewMore, setViewMore] = useState(false)
   const refRBSheet = useRef()
+  const {posts, fetchPost, error} = usePostStore()
+  const [postData, setPostData] = useState([])
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'posts'));
-        const postsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setPosts(postsData);
-      } catch (error) {
-        console.error("Error fetching posts:helo ", error);
-      } finally {
+        fetchPost()
         setLoading(false);
+        setPostData(posts)
+        
+      } catch (error) {
+        setLoading(false);
+
+        console.error("Error fetching posts: ", error);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [posts, error]);
 const a = new Date().toLocaleTimeString()
   const renderItem = ({ item }) => (
     <View style={styles.container}>
@@ -113,7 +116,7 @@ const a = new Date().toLocaleTimeString()
 
 />:
  <FlatList
- data={posts}
+ data={postData}
  renderItem={renderItem}
  keyExtractor={(item)=>item.id}
  />

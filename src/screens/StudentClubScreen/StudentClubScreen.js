@@ -1,30 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { PRIMARYCOLOR } from '../../../assets/Constant/COLOR';
 import AnnonceCard from '../../component/AnnoceCard';
+import { collection, getDocs, query } from 'firebase/firestore';
+import { db } from '../../../.firebase/firebaseConf';
+import { Skeleton } from '@rneui/base';
+import PostSkeleton from '../../component/PostSkeleton';
+import { useClubStore, usePostStore } from '../../../store/zustand';
 
 const StudentClubScreen = () => {
-  const data = [
-    {
-      id: '1',
-      name: 'Fongolab',
-      email: 'Fongolab.com',
-    
-      description: 'Description courte de Fongolab.',
-      avatar: 'assets/logoFongolab.png',
-      socialIcons: ['logo-facebook', 'logo-twitter', 'logo-instagram'],
-    },
-    {
-      id: '2',
-      name: 'Cars',
-      email: 'Cars.com',
-      description: 'Description courte de Cars.',
-      avatar: 'assets/logoFongolab.png',
-      socialIcons: ['logo-facebook', 'logo-instagram'],
-    },
-  ];
+  const [clubsData, setClubsData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const {posts,  error} = usePostStore()
+  const [postData, setPostData] =  useState()
+  const {clubs, fetchClub} =  useClubStore()
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        fetchClub()
+        setLoading(false);
+        const filterPost =  posts.filter((item) =>item.status == "club")
+        setPostData(filterPost)
+        setClubsData(clubs)
+        console.log(clubs);
+      } catch (error) {
+        setLoading(false);
 
+        console.error("Error fetching posts: ", error);
+      }
+    };
+
+    fetchPosts();
+  }, [posts, error, clubs]);
+  
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -45,7 +54,7 @@ const StudentClubScreen = () => {
         </View>
       </View>
       <View style={styles.socialIcons}>
-        {item.socialIcons.map((iconName, index) => (
+        {item.social.map((iconName, index) => (
           <Ionicons key={index} name={iconName} size={24} color={getSocialIconColor(iconName)} style={styles.icon} />
         ))}
       </View>
@@ -74,16 +83,31 @@ const StudentClubScreen = () => {
     }
   };
 
+
   return (
-   <View>
+   <View style={{gap:10}} >
+    
+   <View style={{padding:10}}>
      <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-      contentContainerStyle={styles.flatListContainer}
-      horizontal
+    data={[...Array(5).keys()]}
+    renderItem={()=>
+      
+        <Skeleton  animation='wave'  width={250} height={300} style={{marginRight:10, borderRadius:10, backgroundColor:"#999"}} />
+    }
+    keyExtractor={(item)=>item.key}
+    horizontal
+    
+    
     />
-    <AnnonceCard/>
+   </View>: 
+    <FlatList 
+  data={clubs}
+  renderItem={renderItem}
+  keyExtractor={(item) => item.id}
+  contentContainerStyle={styles.flatListContainer}
+  horizontal
+/>
+{loading?<PostSkeleton/>: <AnnonceCard posts={postData}/>}
    </View>
   );
 };
